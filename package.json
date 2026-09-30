@@ -1,6 +1,7 @@
 {
   "name": "vaultshell",
-  "version": "0.1.1",
+  "version": "0.1.2",
+  "mcpName": "io.github.SoWhatI/vaultshell",
   "description": "MCP server that injects secrets into shell commands at exec time and guarantees plaintext never reaches the model context",
   "type": "module",
   "main": "dist/index.js",

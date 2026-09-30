@@ -6,6 +6,8 @@
 [![npm](https://img.shields.io/npm/v/vaultshell)](https://www.npmjs.com/package/vaultshell)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
+已发布到官方 MCP Registry：`io.github.SoWhatI/vaultshell`
+
 一个 MCP server：把密钥存放在本地安全存储中，按规则在**执行命令的那一刻**注入到 shell 子进程环境，并保证密钥明文**永不进入模型上下文**——不进工具返回值、不进日志、不进审计记录。
 
 核心闭环：**引用式保管 + 条件化注入 + 输出强制脱敏**。

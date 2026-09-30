@@ -6,6 +6,8 @@ English | [简体中文](README.zh-CN.md)
 [![npm](https://img.shields.io/npm/v/vaultshell)](https://www.npmjs.com/package/vaultshell)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
+Available on the official MCP Registry: `io.github.SoWhatI/vaultshell`
+
 An MCP server that stores secrets in local secure storage, injects them into
 shell child processes **at exec time** based on rules, and guarantees secret
 plaintext **never reaches the model context** — not in tool responses, not in

@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.2] - 2026-09-30
+
+MCP Registry publication fixes.
+
+### Added
+- Published to the official MCP Registry as `io.github.SoWhatI/vaultshell`.
+- `package.json` gains an `mcpName` field (preparation for a future npm
+  release).
+- Docker image carries the `io.modelcontextprotocol.server.name` LABEL,
+  required by the registry's OCI package validation.
+
+### Changed
+- `server.json` description shortened to fit the registry's 100-character
+  limit.
+- `server.json` packages now lists only the OCI entry — the npm entry was
+  removed until the package actually exists on npmjs (registry validation
+  checks package existence and the `mcpName` field).
+
 ## [0.1.1] - 2026-09-30
 
 Distribution channels beyond npmjs (GitHub-based).

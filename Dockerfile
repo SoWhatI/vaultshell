@@ -19,6 +19,8 @@ RUN npm run build \
   && npm prune --omit=dev --omit=optional
 
 FROM node:22-bookworm-slim AS runtime
+# MCP Registry 要求的所有权标注
+LABEL io.modelcontextprotocol.server.name="io.github.SoWhatI/vaultshell"
 ENV NODE_ENV=production \
     HOME=/home/node
 WORKDIR /app
