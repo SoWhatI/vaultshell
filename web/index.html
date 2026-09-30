@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>vaultshell config</title>
+<style>
+  :root { color-scheme: light dark; }
+  body { font-family: system-ui, sans-serif; margin: 0; padding: 1rem 2rem; max-width: 1100px; margin: 0 auto; }
+  h1 { font-size: 1.3rem; }
+  nav { display: flex; gap: .5rem; margin: 1rem 0; border-bottom: 1px solid #8884; padding-bottom: .5rem; }
+  nav button { padding: .4rem .9rem; border: 1px solid #8886; background: none; border-radius: 6px; cursor: pointer; font: inherit; }
+  nav button.active { background: #2463eb; color: #fff; border-color: #2463eb; }
+  table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+  th, td { border: 1px solid #8884; padding: .35rem .5rem; text-align: left; vertical-align: top; }
+  th { background: #8881; }
+  input[type=text], input[type=number], select, textarea { font: inherit; padding: .25rem .4rem; border: 1px solid #8886; border-radius: 4px; background: transparent; color: inherit; box-sizing: border-box; width: 100%; }
+  textarea { font-family: ui-monospace, monospace; font-size: .85rem; }
+  button { cursor: pointer; font: inherit; padding: .3rem .7rem; border-radius: 5px; border: 1px solid #8886; background: transparent; color: inherit; }
+  button.primary { background: #2463eb; color: #fff; border-color: #2463eb; }
+  button.danger { color: #dc2626; border-color: #dc2626; }
+  .chip { display: inline-block; padding: 0 .45rem; border-radius: 999px; font-size: .75rem; border: 1px solid #8888; }
+  .chip.ok { color: #16a34a; border-color: #16a34a; }
+  .chip.bad { color: #dc2626; border-color: #dc2626; }
+  .card { border: 1px solid #8884; border-radius: 8px; padding: .8rem; margin-bottom: .8rem; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: .5rem 1rem; }
+  label { font-size: .8rem; color: #888; display: block; margin-bottom: .15rem; }
+  .warn { color: #d97706; }
+  .high { color: #dc2626; font-weight: 600; }
+  .info { color: #2463eb; }
+  .msg { padding: .5rem .8rem; border-radius: 6px; margin: .5rem 0; font-size: .9rem; white-space: pre-wrap; }
+  .msg.err { background: #dc262622; }
+  .msg.ok { background: #16a34a22; }
+  .mono { font-family: ui-monospace, monospace; font-size: .82rem; }
+  .row { display: flex; gap: .5rem; align-items: end; flex-wrap: wrap; }
+  .row > * { flex: 1; min-width: 140px; }
+  .row > .narrow { flex: 0 0 auto; min-width: 0; }
+  .banner { background: #d9770622; border: 1px solid #d97706; border-radius: 8px; padding: .6rem .9rem; font-size: .85rem; }
+  details { margin-top: 1rem; }
+</style>
+</head>
+<body>
+<h1>vaultshell <span style="color:#888;font-weight:400">config UI</span></h1>
+<p class="banner">Local only (127.0.0.1), one-time token, dies with the <code>vaultshell web</code> process.
+Secret values are never displayed — write-only by design.</p>
+<nav>
+  <button data-tab="secrets" class="active">Secrets</button>
+  <button data-tab="rules">Rules</button>
+  <button data-tab="config">Config</button>
+  <button data-tab="audit">Audit</button>
+</nav>
+<main id="main"><p>Loading…</p></main>
+<script src="/app.js"></script>
+</body>
+</html>

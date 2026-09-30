@@ -1,0 +1,26 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build-and-test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        node-version: [20, 22]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: npm
+      - run: npm ci --legacy-peer-deps
+      - run: npm run build
+      # 会话测试内置 node-pty 能力探测：PTY 不可用（如 Linux 上原生构建失败）时
+      # 自动走 child_process 降级路径断言，不会误判失败。
+      - run: npx vitest run

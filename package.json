@@ -1,0 +1,59 @@
+{
+  "name": "vaultshell",
+  "version": "0.1.0",
+  "description": "MCP server that injects secrets into shell commands at exec time and guarantees plaintext never reaches the model context",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "vaultshell": "dist/index.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "files": [
+    "dist",
+    "web",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/index.js",
+    "dev": "tsx src/index.ts",
+    "test": "vitest run",
+    "prepack": "npm run build"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "model-context-protocol",
+    "secrets",
+    "secrets-management",
+    "shell",
+    "security",
+    "redaction"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SoWhatI/vaultshell.git"
+  },
+  "homepage": "https://github.com/SoWhatI/vaultshell#readme",
+  "bugs": "https://github.com/SoWhatI/vaultshell/issues",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.1",
+    "minimatch": "^10.2.6",
+    "yaml": "^2.9.1",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.3",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.1",
+    "vitest": "^5.0.2"
+  },
+  "optionalDependencies": {
+    "node-pty": "^1.1.0"
+  }
+}
