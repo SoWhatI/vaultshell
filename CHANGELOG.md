@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Removed
+- `smithery.yaml` and the Smithery distribution note: Smithery has gone
+  hosted-only (only servers deployed to its own infrastructure are
+  accepted). vaultshell's secrets must stay on the user's machine by design,
+  so third-party hosting is incompatible with its threat model. The READMEs
+  now state this explicitly instead.
+
 ## [0.1.2] - 2026-09-30
 
 MCP Registry publication fixes.
