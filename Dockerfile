@@ -10,7 +10,9 @@
 FROM node:22-bookworm-slim AS builder
 WORKDIR /app
 COPY package.json package-lock.json ./
-RUN npm ci --legacy-peer-deps
+# --ignore-scripts：npm ci 会触发本包的 prepare（tsc build），
+# 此时 tsconfig/src 还没拷进来，必失败；build 在 COPY src 后显式跑。
+RUN npm ci --legacy-peer-deps --ignore-scripts
 COPY tsconfig.json ./
 COPY src ./src
 RUN npm run build \
