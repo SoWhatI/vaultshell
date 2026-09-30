@@ -84,6 +84,13 @@ containers; injection and redaction are unchanged. The `web` subcommand
 passes through (`docker run … ghcr.io/sowhati/vaultshell web` — loopback
 inside the container, of limited use).
 
+### Smithery
+
+A [`smithery.yaml`](smithery.yaml) is included, so vaultshell can be built
+and deployed from [Smithery](https://smithery.ai). Repository owners: claim
+the listing at <https://smithery.ai> (log in with GitHub, connect
+`SoWhatI/vaultshell`, then Deploy from the server page's Deployments tab).
+
 ### From source
 
 ```bash

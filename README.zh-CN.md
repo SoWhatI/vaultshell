@@ -77,6 +77,13 @@ MCP 客户端用 Docker 的配置：
 （`docker run … ghcr.io/sowhati/vaultshell web`——loopback 在容器内部，
 用途有限）。
 
+### Smithery
+
+仓库自带 [`smithery.yaml`](smithery.yaml)，可以通过
+[Smithery](https://smithery.ai) 构建与部署 vaultshell。仓库所有者：在
+<https://smithery.ai> 用 GitHub 登录后认领条目（连接 `SoWhatI/vaultshell`，
+然后在 server 页面的 Deployments 标签页点 Deploy）。
+
 ### 从源码构建
 
 ```bash

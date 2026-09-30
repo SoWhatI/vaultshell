@@ -1,0 +1,31 @@
+# Smithery configuration file: https://smithery.ai/docs/config#smitheryyaml
+# vaultshell 是 stdio MCP server；Smithery 克隆仓库后 npm install
+# （prepare 脚本自动产出 dist/），再用下面的 commandFunction 启动。
+
+startCommand:
+  type: stdio
+  configSchema:
+    # JSON Schema defining the configuration options for the MCP.
+    type: object
+    properties:
+      masterKey:
+        type: string
+        title: Master key
+        description: >-
+          64 hex chars (or base64, 32 bytes) master key for the encrypted-file
+          backend. Optional: only needed if you use the default encrypted-file
+          backend with keySource env:MASTER_KEY. Generate one with
+          `openssl rand -hex 32`.
+    description: >-
+      Optional configuration for vaultshell. Without a master key you can
+      still use env://, file:// and external CLI backend refs.
+  commandFunction:
+    # A JS function that produces the CLI command based on the given config to start the MCP on stdio.
+    |-
+    (config) => {
+      const env = {};
+      if (config.masterKey) env.MASTER_KEY = config.masterKey;
+      return { command: 'node', args: ['dist/index.js'], env };
+    }
+  exampleConfig:
+    masterKey: 0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef
