@@ -27,6 +27,56 @@
 
 需要 Node.js 20+。
 
+### 从 GitHub 安装（不需要 npm registry 账号）
+
+```bash
+# 直接从仓库按需运行（npm 会安装 devDependencies 并通过
+# `prepare` 脚本构建出 dist/）：
+npx -y github:SoWhatI/vaultshell
+
+# 或全局安装：
+npm i -g github:SoWhatI/vaultshell
+```
+
+这与 npm registry 包是同一份代码，只是从 git 安装——npm 会克隆仓库、
+运行 `prepare`（即 `npm run build`）并链接 `vaultshell` bin。
+要可复现就钉住 tag：`npx -y github:SoWhatI/vaultshell#v0.1.1`。
+
+### Docker（ghcr.io）
+
+```bash
+docker run -i --rm \
+  -e MASTER_KEY=<64 hex chars> \
+  -v ~/.vaultshell:/home/node/.vaultshell \
+  ghcr.io/sowhati/vaultshell:latest
+```
+
+MCP 客户端用 Docker 的配置：
+
+```json
+{
+  "mcpServers": {
+    "vaultshell": {
+      "command": "docker",
+      "args": [
+        "run", "-i", "--rm",
+        "-e", "MASTER_KEY=<64 hex chars>",
+        "-v", "~/.vaultshell:/home/node/.vaultshell",
+        "ghcr.io/sowhati/vaultshell:latest"
+      ]
+    }
+  }
+}
+```
+
+镜像以非 root 的 `node` 用户运行（`HOME=/home/node`），所以数据卷挂载在
+`/home/node/.vaultshell`。镜像内不含 node-pty——容器里的会话自动降级为
+管道模式（`pty: false`），注入与脱敏行为不变。`web` 子命令可以透传
+（`docker run … ghcr.io/sowhati/vaultshell web`——loopback 在容器内部，
+用途有限）。
+
+### 从源码构建
+
 ```bash
 # 通过 npx 运行（发布之后）或从源码构建：
 npm install && npm run build

@@ -2,7 +2,7 @@
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-29/server.schema.json",
   "name": "io.github.SoWhatI/vaultshell",
   "description": "MCP server that injects secrets into shell commands at exec time and guarantees plaintext never reaches the model context",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "repository": {
     "url": "https://github.com/SoWhatI/vaultshell",
     "source": "github"
@@ -11,7 +11,14 @@
     {
       "registryType": "npm",
       "identifier": "vaultshell",
-      "version": "0.1.0",
+      "version": "0.1.1",
+      "transport": {
+        "type": "stdio"
+      }
+    },
+    {
+      "registryType": "oci",
+      "identifier": "ghcr.io/sowhati/vaultshell:0.1.1",
       "transport": {
         "type": "stdio"
       }

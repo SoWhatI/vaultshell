@@ -30,11 +30,34 @@ npx -y vaultshell
 npm install -g vaultshell
 vaultshell            # starts the MCP server on stdio
 
-# Option C: from source
+# Option C: install from GitHub (no npm registry account needed —
+# npm clones the repo and builds dist/ via the `prepare` script)
+npx -y github:SoWhatI/vaultshell
+npm i -g github:SoWhatI/vaultshell
+# pin a tag for reproducibility: github:SoWhatI/vaultshell#v0.1.1
+
+# Option D: Docker (ghcr.io)
+docker run -i --rm \
+  -e MASTER_KEY=<64 hex chars> \
+  -v ~/.vaultshell:/home/node/.vaultshell \
+  ghcr.io/sowhati/vaultshell:latest
+
+# Option E: from source
 git clone <repo-url> && cd vaultshell
 npm install && npm run build
 node dist/index.js
 ```
+
+Notes on the channels:
+
+- **GitHub install vs npm registry**: identical code; from git, npm installs
+  devDependencies and runs `prepare` (→ `npm run build`), so TypeScript is
+  compiled on your machine. Registry tarballs ship prebuilt `dist/` instead.
+- **Docker**: the image runs as the non-root `node` user
+  (`HOME=/home/node`), so mount your data directory at
+  `/home/node/.vaultshell`. node-pty is not in the image — sessions fall
+  back to pipe mode (`pty: false`); injection and redaction are unchanged.
+  MCP client config example with `docker run`: see the README.
 
 You normally don't run vaultshell by hand — your MCP client spawns it over
 stdio. Running it directly is fine for a smoke test (it will sit waiting for

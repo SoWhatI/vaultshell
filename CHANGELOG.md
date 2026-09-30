@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.1] - 2026-09-30
+
+Distribution channels beyond npmjs (GitHub-based).
+
+### Added
+- Install directly from GitHub: `npx -y github:SoWhatI/vaultshell` /
+  `npm i -g github:SoWhatI/vaultshell`. A `prepare` script (`npm run build`)
+  makes npm compile `dist/` automatically when installing from git.
+- Docker image on GHCR: `ghcr.io/sowhati/vaultshell` (tags `vX.Y.Z`, `X.Y`,
+  `latest`), built by `.github/workflows/docker.yml` on `v*` tags. Multi-stage
+  `Dockerfile` (node:22-bookworm-slim); runtime runs as non-root `node`
+  (`HOME=/home/node`, volume at `/home/node/.vaultshell`). node-pty is
+  excluded from the image (`--omit=optional`) — sessions fall back to pipe
+  mode in containers; headless containers get nothing from a PTY and the
+  native prebuild/spawn-helper is the most common build-fragility point.
+- `server.json` gains an OCI package entry alongside the npm one
+  (`ghcr.io/sowhati/vaultshell:0.1.1`).
+- Chinese documentation: `README.zh-CN.md` and `docs/user-guide.zh-CN.md`
+  (full translations, cross-linked with the English versions).
+
 ## [0.1.0] - 2026-09-30
 
 First public release: M1 MVP + M2 (sessions, rules) + M3 (hardening,

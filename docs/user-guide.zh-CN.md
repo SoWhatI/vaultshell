@@ -30,11 +30,33 @@ npx -y vaultshell
 npm install -g vaultshell
 vaultshell            # 在 stdio 上启动 MCP server
 
-# 方式 C：从源码
+# 方式 C：从 GitHub 安装（不需要 npm registry 账号——
+# npm 会克隆仓库并通过 `prepare` 脚本构建出 dist/）
+npx -y github:SoWhatI/vaultshell
+npm i -g github:SoWhatI/vaultshell
+# 要可复现就钉住 tag：github:SoWhatI/vaultshell#v0.1.1
+
+# 方式 D：Docker（ghcr.io）
+docker run -i --rm \
+  -e MASTER_KEY=<64 hex chars> \
+  -v ~/.vaultshell:/home/node/.vaultshell \
+  ghcr.io/sowhati/vaultshell:latest
+
+# 方式 E：从源码
 git clone <repo-url> && cd vaultshell
 npm install && npm run build
 node dist/index.js
 ```
+
+各渠道说明：
+
+- **GitHub 安装 vs npm registry**：代码完全相同；从 git 安装时 npm 会安装
+  devDependencies 并运行 `prepare`（即 `npm run build`），所以 TypeScript 在
+  你的机器上现场编译。registry 的 tarball 则自带构建好的 `dist/`。
+- **Docker**：镜像以非 root 的 `node` 用户运行（`HOME=/home/node`），所以数据
+  目录挂载在 `/home/node/.vaultshell`。镜像内不含 node-pty——会话自动降级为
+  管道模式（`pty: false`），注入与脱敏行为不变。MCP 客户端的 `docker run`
+  配置示例见 README。
 
 通常你不会手动运行 vaultshell——MCP 客户端会通过 stdio 拉起它。
 直接运行也可以用于冒烟测试（它会停在那里等 JSON-RPC；Ctrl-C 退出）。

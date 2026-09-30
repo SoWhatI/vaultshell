@@ -32,6 +32,58 @@ mandatory output redaction**.
 
 Requires Node.js 20+.
 
+### Install from GitHub (no npm registry account needed)
+
+```bash
+# Run on demand directly from the repo (npm installs devDependencies and
+# builds dist/ via the `prepare` script):
+npx -y github:SoWhatI/vaultshell
+
+# Or install globally:
+npm i -g github:SoWhatI/vaultshell
+```
+
+This is the same code as the npm registry package, installed from git —
+npm clones the repo, runs `prepare` (→ `npm run build`) and links the
+`vaultshell` bin. Pin a tag for reproducibility:
+`npx -y github:SoWhatI/vaultshell#v0.1.1`.
+
+### Docker (ghcr.io)
+
+```bash
+docker run -i --rm \
+  -e MASTER_KEY=<64 hex chars> \
+  -v ~/.vaultshell:/home/node/.vaultshell \
+  ghcr.io/sowhati/vaultshell:latest
+```
+
+MCP client config using Docker:
+
+```json
+{
+  "mcpServers": {
+    "vaultshell": {
+      "command": "docker",
+      "args": [
+        "run", "-i", "--rm",
+        "-e", "MASTER_KEY=<64 hex chars>",
+        "-v", "~/.vaultshell:/home/node/.vaultshell",
+        "ghcr.io/sowhati/vaultshell:latest"
+      ]
+    }
+  }
+}
+```
+
+The image runs as the non-root `node` user (`HOME=/home/node`), so the data
+volume mounts at `/home/node/.vaultshell`. node-pty is excluded from the
+image — sessions automatically fall back to pipe mode (`pty: false`) in
+containers; injection and redaction are unchanged. The `web` subcommand
+passes through (`docker run … ghcr.io/sowhati/vaultshell web` — loopback
+inside the container, of limited use).
+
+### From source
+
 ```bash
 # Run via npx (after publish) or from source:
 npm install && npm run build

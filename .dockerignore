@@ -1,0 +1,12 @@
+node_modules
+dist
+docs
+test
+.git
+.github
+*.md
+!README.md
+!LICENSE
+Dockerfile
+.dockerignore
+vitest.config.ts
