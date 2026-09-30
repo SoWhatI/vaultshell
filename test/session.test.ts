@@ -11,7 +11,24 @@ const MASTER_KEY = "0123456789abcdef".repeat(4);
 let ptyAvailable = false;
 
 beforeAll(async () => {
-  ptyAvailable = (await defaultPtyLoader()) !== null;
+  // 真实 spawn 探测：node-pty 能 import 不等于能 spawn（prebuilds 的
+  // spawn-helper 可能缺执行位）——以真实能力为准，断言才不误判。
+  const mod = await defaultPtyLoader();
+  if (mod) {
+    try {
+      const probe = mod.spawn("/bin/true", [], {
+        name: "xterm",
+        cols: 80,
+        rows: 24,
+        cwd: tmpdir(),
+        env: { PATH: process.env.PATH ?? "" },
+      });
+      ptyAvailable = true;
+      probe.kill();
+    } catch {
+      ptyAvailable = false;
+    }
+  }
 });
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));

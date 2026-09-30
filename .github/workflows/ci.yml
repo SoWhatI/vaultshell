@@ -21,6 +21,9 @@ jobs:
           cache: npm
       - run: npm ci --legacy-peer-deps
       - run: npm run build
-      # 会话测试内置 node-pty 能力探测：PTY 不可用（如 Linux 上原生构建失败）时
-      # 自动走 child_process 降级路径断言，不会误判失败。
+      # node-pty 的 prebuilds tarball 里 spawn-helper 可能丢执行位（posix_spawnp
+      # failed），npm 解包不会恢复——这里显式补回，保证 macOS 上跑到真实 PTY 路径。
+      - run: chmod +x node_modules/node-pty/prebuilds/*/spawn-helper 2>/dev/null || true
+      # 会话测试内置 node-pty 真实 spawn 能力探测：PTY 不可用（如 Linux 上原生
+      # 构建失败）时自动走 child_process 降级路径断言，不会误判失败。
       - run: npx vitest run
